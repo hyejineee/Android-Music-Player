@@ -6,11 +6,11 @@
 
         <variable
             name="mView"
-            type="com.hyejineee.flochallenge.mView.LyricsDialog" />
+            type="com.hyejineee.musicApp.mView.LyricsDialog" />
 
         <variable
             name="songInfo"
-            type="com.hyejineee.flochallenge.model.SongInfo" />
+            type="com.hyejineee.musicApp.model.SongInfo" />
 
         <variable
             name="touchMode"
@@ -18,7 +18,7 @@
 
         <variable
             name="songInfoViewModel"
-            type="com.hyejineee.flochallenge.mVIewModel.SongInfoViewModel" />
+            type="com.hyejineee.musicApp.mVIewModel.SongInfoViewModel" />
 
     </data>
 
