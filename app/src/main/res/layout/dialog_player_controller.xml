@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <com.google.android.exoplayer2.ui.DefaultTimeBar
+        android:id="@+id/exo_progress"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/player_time_bar"
+        app:bar_height="16dp"
+        app:buffered_color="@color/opacity0"
+        app:played_color="@color/opacity0"
+        app:scrubber_drawable="@drawable/ic_scrubber"
+        app:touch_target_height="16dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/timebar_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_cjk_kr_light"
+            android:includeFontPadding="false"
+            android:text="00:00"
+            android:textAlignment="textStart"
+            android:textColor="@color/text"
+            android:textSize="@dimen/song_singer" />
+
+        <TextView
+            android:id="@+id/end_timebar_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:fontFamily="@font/notosans_cjk_kr_light"
+            android:includeFontPadding="false"
+            android:text="00:00"
+            android:textColor="@color/text"
+            android:textSize="@dimen/song_singer" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_margin">
+
+        <ImageButton
+            android:id="@+id/exo_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#fff"
+            android:src="@drawable/ic_play_mini" />
+
+        <ImageButton
+            android:id="@+id/exo_pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#fff"
+            android:src="@drawable/ic_pause_mini" />
+
+    </FrameLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Define the background properties like color etc -->
+    <item android:id="@android:id/background">
+        <shape android:shape="oval">
+            <size
+                android:width="50dp"
+                android:height="50dp" />
+            <solid android:color="@color/white" />
+            <corners android:radius="50dp" />
+        </shape>
+    </item>
+
+</layer-list>

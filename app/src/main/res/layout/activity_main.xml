@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="songInfoViewModel"
+            type="com.hyejineee.flochallenge.mVIewModel.SongInfoViewModel" />
+
+        <variable
+            name="songInfo"
+            type="com.hyejineee.flochallenge.model.SongInfo" />
+        <variable
+            name="activity"
+            type="com.hyejineee.flochallenge.mView.MainActivity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:padding="16dp">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontal_guideline"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vertical_guideline"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vertical_start_guideline"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vertical_end_guideline"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontal_end_guideline"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.75" />
+
+        <TextView
+            android:id="@+id/song_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_cjk_kr_black"
+            android:includeFontPadding="false"
+            android:text="@{songInfo.title}"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/song_title"
+            app:layout_constraintBottom_toTopOf="@id/song_cover_image"
+            app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+            app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0" />
+
+        <TextView
+            android:id="@+id/song_album_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_margin"
+            android:fontFamily="@font/notosans_cjk_kr_light"
+            android:includeFontPadding="false"
+            android:text="@{songInfo.album}"
+            android:textColor="@color/text"
+            android:textSize="@dimen/song_singer"
+            app:layout_constraintBottom_toTopOf="@id/song_cover_image"
+            app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+            app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+            app:layout_constraintTop_toBottomOf="@+id/song_title_text"
+            app:layout_constraintVertical_bias="0" />
+
+        <TextView
+            android:id="@+id/song_singer_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_cjk_kr_light"
+            android:includeFontPadding="false"
+            android:text="@{songInfo.singer}"
+            android:textColor="@color/text"
+            android:textSize="@dimen/song_singer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/song_album_text"
+            app:layout_constraintVertical_bias="0" />
+
+        <ImageView
+            android:id="@+id/song_cover_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/wide_margin"
+            android:layout_marginTop="@dimen/middle_margin"
+            android:layout_marginRight="@dimen/wide_margin"
+            android:background="@drawable/oval_shadow"
+            android:outlineSpotShadowColor="@color/colorAccent"
+            android:padding="1dp"
+            android:translationZ="@dimen/wide_margin"
+            app:layout_constraintDimensionRatio="H,5:5"
+            app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+            app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+            app:layout_constraintTop_toBottomOf="@+id/song_singer_text"
+            app:layout_constraintVertical_bias="1"
+            app:loadImage="@{songInfo.image}" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/wide_margin"
+            android:layout_marginTop="@dimen/middle_margin"
+            android:layout_marginRight="@dimen/wide_margin"
+            android:src="@drawable/album_line"
+            android:translationZ="34dp"
+            app:layout_constraintDimensionRatio="H,5:5"
+            app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+            app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+            app:layout_constraintTop_toBottomOf="@+id/song_singer_text"
+            app:layout_constraintVertical_bias="1" />
+
+        <ImageView
+            android:id="@+id/lyrics_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->activity.showLyricsDialog()}"
+            android:src="@drawable/ic_lyrics"
+            app:layout_constraintBottom_toTopOf="@+id/player_view"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/vertical_start_guideline"
+            app:layout_constraintTop_toTopOf="@+id/lyrics_container"
+            app:layout_constraintVertical_bias="0" />
+
+
+        <LinearLayout
+            android:id="@+id/lyrics_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/wide_margin"
+            android:gravity="center"
+            android:onClick="@{()->activity.showLyricsDialog()}"
+            android:orientation="vertical"
+            android:padding="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/player_view"
+            app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+            app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+            app:layout_constraintTop_toBottomOf="@+id/song_cover_image"
+            app:layout_constraintVertical_bias="0">
+
+            <TextView
+                android:id="@+id/current_lyrics_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_cjk_kr_regular"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="0dp"
+                android:padding="0dp"
+                android:textColor="@color/highlight"
+                android:textSize="@dimen/lyrics_text" />
+
+            <TextView
+                android:id="@+id/next_lyrics_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_margin"
+                android:fontFamily="@font/notosans_cjk_kr_regular"
+                android:includeFontPadding="false"
+                android:textColor="@color/text"
+                android:textSize="@dimen/lyrics_text" />
+
+
+        </LinearLayout>
+
+
+        <com.google.android.exoplayer2.ui.PlayerControlView
+            android:id="@+id/player_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="@dimen/middle_margin"
+            android:layout_marginRight="24dp"
+            app:controller_layout_id="@layout/player_controll"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/horizontal_end_guideline"
+            app:layout_constraintVertical_bias="1" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
