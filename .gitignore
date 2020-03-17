@@ -15,4 +15,5 @@
 .externalNativeBuild
 .cxx
 ._.?
-
+/._.?
+**/._.?
