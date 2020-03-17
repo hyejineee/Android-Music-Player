@@ -6,11 +6,11 @@
 
         <variable
             name="mView"
-            type="com.hyejineee.musicApp.mView.LyricsDialog" />
+            type="com.hyejineee.musicapp.mView.LyricsDialog" />
 
         <variable
             name="songInfo"
-            type="com.hyejineee.musicApp.model.SongInfo" />
+            type="com.hyejineee.musicapp.model.SongInfo" />
 
         <variable
             name="touchMode"
@@ -18,7 +18,7 @@
 
         <variable
             name="songInfoViewModel"
-            type="com.hyejineee.musicApp.mVIewModel.SongInfoViewModel" />
+            type="com.hyejineee.musicapp.mVIewModel.SongInfoViewModel" />
 
     </data>
 

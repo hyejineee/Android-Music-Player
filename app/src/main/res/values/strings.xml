@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">FloChallenge</string>
+    <string name="channel">PlaybackChannel</string>
     <string name="splash_image">
         https://grepp-cloudfront.s3.ap-northeast-2.amazonaws.com/programmers_imgs/competition-imgs/2020-Flo-challenge/FLO_Splash-Img3x(1242x2688).png</string>
 </resources>

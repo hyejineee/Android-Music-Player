@@ -10,7 +10,7 @@ android {
     compileSdkVersion 28
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "com.hyejineee.flochallenge"
+        applicationId "com.hyejineee.musicapp"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1

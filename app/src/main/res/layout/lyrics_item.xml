@@ -6,7 +6,7 @@
     <data>
         <variable
             name="lyrics"
-            type="com.hyejineee.musicApp.model.Lyrics" />
+            type="com.hyejineee.musicapp.model.Lyrics" />
         <variable
             name="isCurrent"
             type="Boolean" />

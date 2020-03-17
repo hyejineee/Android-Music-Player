@@ -6,14 +6,14 @@
 
         <variable
             name="songInfoViewModel"
-            type="com.hyejineee.musicApp.mVIewModel.SongInfoViewModel" />
+            type="com.hyejineee.musicapp.mVIewModel.SongInfoViewModel" />
 
         <variable
             name="songInfo"
-            type="com.hyejineee.musicApp.model.SongInfo" />
+            type="com.hyejineee.musicapp.model.SongInfo" />
         <variable
             name="activity"
-            type="com.hyejineee.musicApp.mView.MainActivity" />
+            type="com.hyejineee.musicapp.mView.MainActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
