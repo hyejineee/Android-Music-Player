@@ -1,7 +1,9 @@
 package com.hyejineee.musicapp.mVIewModel
 
 import androidx.lifecycle.ViewModel
+import com.google.android.exoplayer2.SimpleExoPlayer
 import com.hyejineee.musicapp.data.repository.SongInfoRepository
+import com.hyejineee.musicapp.mView.PlayerService
 import com.hyejineee.musicapp.model.Lyrics
 import com.hyejineee.musicapp.model.SongInfo
 import com.hyejineee.musicapp.model.convertSrtToLyricsList
@@ -11,6 +13,8 @@ import io.reactivex.subjects.Subject
 class SongInfoViewModel(
     private val songInfoRepository: SongInfoRepository
 ) : ViewModel() {
+
+    lateinit var playerService: PlayerService
 
     var songInfo: SongInfo = SongInfo()
         set(value) {

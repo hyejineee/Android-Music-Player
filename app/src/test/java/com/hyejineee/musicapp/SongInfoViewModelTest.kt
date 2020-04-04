@@ -1,7 +1,10 @@
 package com.hyejineee.musicapp
 
+import com.google.android.exoplayer2.Player
+import com.google.android.exoplayer2.SimpleExoPlayer
 import com.hyejineee.musicapp.data.repository.SongInfoRepository
 import com.hyejineee.musicapp.mVIewModel.SongInfoViewModel
+import com.hyejineee.musicapp.mView.PlayerService
 import com.hyejineee.musicapp.model.SongInfo
 import io.reactivex.Observable
 import io.reactivex.observers.TestObserver
@@ -12,6 +15,9 @@ import org.mockito.BDDMockito.given
 import org.mockito.Mockito.mock
 
 class SongInfoViewModelTest {
+
+
+
     private var songInfoRepository: SongInfoRepository = mock(SongInfoRepository::class.java)
 
     val songInfo = SongInfo(

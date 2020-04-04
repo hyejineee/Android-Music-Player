@@ -2,6 +2,8 @@ package com.hyejineee.musicapp.mView
 
 import android.app.Notification
 import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_CANCEL_CURRENT
+import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.app.Service
 import android.content.Intent
 import android.graphics.Bitmap
@@ -19,6 +21,7 @@ import com.google.android.exoplayer2.ui.PlayerNotificationManager
 import com.google.android.exoplayer2.upstream.ByteArrayDataSource
 import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
+import com.google.android.exoplayer2.util.Log
 import com.google.android.exoplayer2.util.MimeTypes
 import com.hyejineee.musicapp.R
 import com.hyejineee.musicapp.model.SongInfo
@@ -34,6 +37,8 @@ class PlayerService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        Log.d("service","onCreate() is called." )
+
         player = SimpleExoPlayer.Builder(this).build()
         playerNotificationManager = PlayerNotificationManager.createWithNotificationChannel(
             this,
@@ -42,7 +47,12 @@ class PlayerService : Service() {
             1,
             object : PlayerNotificationManager.MediaDescriptionAdapter {
                 override fun createCurrentContentIntent(player: Player): PendingIntent? {
-                    return null
+
+                    return PendingIntent.getActivity(
+                        this@PlayerService,0,
+                        Intent(this@PlayerService, MainActivity::class.java),
+                        FLAG_UPDATE_CURRENT
+                        )
                 }
 
                 override fun getCurrentContentText(player: Player): String? {
@@ -67,9 +77,8 @@ class PlayerService : Service() {
                     notificationId: Int,
                     dismissedByUser: Boolean
                 ) {
+                    releasePlayer()
                     stopSelf()
-                    playerNotificationManager.setPlayer(null)
-                    player?.release()
                 }
 
                 override fun onNotificationStarted(
@@ -86,14 +95,12 @@ class PlayerService : Service() {
 
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        if (player == null) {
-            player = SimpleExoPlayer.Builder(this).build()
-        }
-
-        return START_NOT_STICKY
+        Log.d("service","onStartCommand() is called." )
+        return super.onStartCommand(intent, flags, startId)
     }
 
     override fun onBind(intent: Intent?): IBinder? {
+        Log.d("service","onBind() is called." )
         return binder
     }
 
@@ -103,6 +110,10 @@ class PlayerService : Service() {
         player?.prepare(
             getSongSource(songInfo)
         )
+    }
+    private fun releasePlayer(){
+        playerNotificationManager.setPlayer(null)
+        player?.release()
     }
 
     private fun getSongSource(songInfo: SongInfo): MergingMediaSource {
@@ -125,6 +136,4 @@ class PlayerService : Service() {
 
         return MergingMediaSource(mediaSource, subtitleSource)
     }
-
-
 }

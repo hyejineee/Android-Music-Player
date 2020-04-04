@@ -4,27 +4,16 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil.setContentView
-import com.google.android.exoplayer2.C
-import com.google.android.exoplayer2.Format
 import com.google.android.exoplayer2.SimpleExoPlayer
-import com.google.android.exoplayer2.source.MergingMediaSource
-import com.google.android.exoplayer2.source.ProgressiveMediaSource
-import com.google.android.exoplayer2.source.SingleSampleMediaSource
-import com.google.android.exoplayer2.upstream.ByteArrayDataSource
-import com.google.android.exoplayer2.upstream.DataSource
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
-import com.google.android.exoplayer2.util.MimeTypes
 import com.hyejineee.musicapp.R
 import com.hyejineee.musicapp.databinding.ActivityMainBinding
 import com.hyejineee.musicapp.mVIewModel.SongInfoViewModel
-import com.hyejineee.musicapp.model.SongInfo
 import com.hyejineee.musicapp.model.convertLongTimeToString
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -41,7 +30,8 @@ class MainActivity : AppCompatActivity(), BaseInit {
 
     private lateinit var playerService:PlayerService
     private var player: SimpleExoPlayer? = null
-    private val serviceConnection = object :ServiceConnection{
+
+    private val serviceConnection = object : ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName?) {
             TODO("Not yet implemented")
         }
@@ -49,7 +39,6 @@ class MainActivity : AppCompatActivity(), BaseInit {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             playerService = (service as PlayerService.InnerBinder).getService()
             player = playerService.getPlayer()
-
             initView()
             initDataBinding()
             initSubscribe()
@@ -63,12 +52,9 @@ class MainActivity : AppCompatActivity(), BaseInit {
         super.onCreate(savedInstanceState)
 
         viewDataBinding = setContentView(this, R.layout.activity_main)
-        val i = Intent(this, PlayerService::class.java)
-
-        startService(i)
-        bindService(i,serviceConnection, Context.BIND_AUTO_CREATE)
-
         getSongInfo()
+
+        bindService(Intent(this,PlayerService::class.java),serviceConnection, Context.BIND_AUTO_CREATE)
     }
 
     override fun onStop() {
@@ -76,9 +62,14 @@ class MainActivity : AppCompatActivity(), BaseInit {
         compositeDisposable.clear()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        unbindService(serviceConnection)
+    }
+
     override fun initView() {
         viewDataBinding.lifecycleOwner = this
-        viewDataBinding.playerView.player = playerService.getPlayer()
+        viewDataBinding.playerView.player = player
         viewDataBinding.playerView.showTimeoutMs = 0
     }
 
@@ -100,18 +91,20 @@ class MainActivity : AppCompatActivity(), BaseInit {
             }).addTo(compositeDisposable)
 
         songInfoViewModel.currentLyricsIndexSubject
-            .subscribe {
+            .subscribe( {
                 setLyricsTextView(
                     songInfoViewModel.lyricsList[it].content,
                     if (it == songInfoViewModel.lyricsList.lastIndex) ""
                     else songInfoViewModel.lyricsList[it + 1].content
                 )
-            }
+            },{
+                Log.e("error", it.message)
+            })
             .addTo(compositeDisposable)
     }
 
     fun showLyricsDialog() {
-        val dialog = LyricsDialog(playerService.getPlayer())
+        val dialog = LyricsDialog(player)
         if (!dialog.isResumed)
             dialog.show(supportFragmentManager, "")
     }
@@ -145,6 +138,4 @@ class MainActivity : AppCompatActivity(), BaseInit {
             songInfoViewModel.setPosition(position)
         }
     }
-
-
 }
